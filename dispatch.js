@@ -14,6 +14,10 @@ module.exports = function() {
         case 'help':
             printDoc('app');
             break;
+        case 'version':
+            const { version } = require("./package.json");
+            process.stdout.write(version.concat('\n'));
+            break
         case null: 
             get(targetGlobal);
             break;
