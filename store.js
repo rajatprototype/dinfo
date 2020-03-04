@@ -9,7 +9,7 @@ const { homedir } = require("os");
  * @return {string}
  */
 module.exports.__defineGetter__('globalpath', 
-    () => join(homedir(), ".dir-desc/gdir.json")
+    () => join(homedir(), ".dinfo/gdir.json")
 );
 
 /**

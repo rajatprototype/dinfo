@@ -1,0 +1,8 @@
+
+Usage: dinfo set <note> [keywords...]
+
+Set directory definition
+
+Example:
+  dinfo set "My first app" react redux
+

@@ -93,7 +93,7 @@ module.exports.remove = (fromGlobal = false) => {
 }
 
 module.exports.printDoc = (docname = 'app') => {
-    const path = join('doc', docname.concat('.txt'));
+    const path = join(__dirname, 'doc', docname.concat('.txt'));
     const content = fs.readFileSync(path, "UTF-8");
     process.stdout.write(content);
     return content;

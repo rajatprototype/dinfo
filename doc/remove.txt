@@ -1,0 +1,5 @@
+
+Usage: dinfo remove
+
+Unset directory definition
+

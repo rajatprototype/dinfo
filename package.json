@@ -1,11 +1,16 @@
 {
-  "name": "dir-desc",
+  "name": "dinfo",
   "version": "1.0.0",
   "description": "Remember directory role.",
+  "preferGlobal": true,
   "bin": {
     "dinfo": "./index.js"
   },
-  "keywords": ["dir-desc", "dirdesc"],
-  "author": "",
+  "keywords": ["dinfo", "dir-info", "dirinfo"],
+  "author": {
+    "name": "Rajat Sharma",
+    "email": "rajat.prototype@gmail.com",
+    "url": "https://twitter.com/Rajat04500210"
+  },
   "license": "ISC"
 }

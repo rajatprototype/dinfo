@@ -12,7 +12,19 @@ module.exports = function() {
             remove(targetGlobal);
             break;
         case 'help':
-            printDoc('app');
+            const [ context ] = param;
+            switch(context) {
+                case 'set':
+                    printDoc("set");
+                    break;
+                case 'remove':
+                    printDoc("remove");
+                    break;
+                case 'app':
+                default:
+                    printDoc("app");
+                    break;
+            }
             break;
         case 'version':
             const { version } = require("./package.json");
