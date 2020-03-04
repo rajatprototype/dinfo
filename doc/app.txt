@@ -1,0 +1,12 @@
+
+Usage: dinfo <option> [flags]
+
+Options:
+  set             Set or init store
+  remove          Remove store
+
+Flags:
+  -g, --global    Access global store
+  -d, --date      Date specific
+  -k, --keywords  Releative keywords
+

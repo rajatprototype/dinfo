@@ -1,0 +1,11 @@
+{
+  "name": "dir-desc",
+  "version": "1.0.0",
+  "description": "Remember directory role.",
+  "bin": {
+    "dinfo": "./index.js"
+  },
+  "keywords": ["dir-desc", "dirdesc"],
+  "author": "",
+  "license": "ISC"
+}
