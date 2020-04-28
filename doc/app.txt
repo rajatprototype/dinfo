@@ -6,7 +6,9 @@ Options:
   version         Package version
 
   set             Set definition
+  get             Keyword specific routes
   remove          Remove definition
+  keywords        List all keywords
 
 Flags:
   -g, --global    Access global store

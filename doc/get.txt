@@ -1,0 +1,8 @@
+
+Usage: dinfo get <keyword>
+
+Get route list of specific keyword from global store
+
+Example:
+  dinfo get webapp
+

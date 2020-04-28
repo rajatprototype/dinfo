@@ -3,7 +3,8 @@ const fs = require("fs");
 const { flags } = require("./cli");
 const descriptor = require("./descriptor");
 const store = require("./store");
-const { dirname, join } = require("path");
+const keymap = require("./store/keymap");
+const { dirname, basename, join } = require("path");
 
 /**
  * Build readable string depending on cli flag
@@ -42,12 +43,20 @@ const buildReadableString = (flags, data) => {
 module.exports.initSetup = () => {
     const gpath = store.globalpath;
     const basedir = dirname(gpath);
+
     // Making working dir
     if (!fs.existsSync(basedir)) {
         fs.mkdirSync(basedir);
     }
+
+    // Create ~/.dinfo/gdir.json
     if (!fs.existsSync(gpath)) {
         fs.writeFileSync(gpath, "{}", "UTF-8");
+    }
+
+    // Create ~/.dinfo/keymap.json
+    if (!fs.existsSync(keymap.globalkeymappath)) {
+        fs.writeFileSync(keymap.globalkeymappath, "{}", "UTF-8");
     }
 }
 
@@ -92,9 +101,50 @@ module.exports.remove = (fromGlobal = false) => {
     return store.remove(fromGlobal);
 }
 
+/**
+ * Print command help
+ * @param {string} docname
+ * @return {string}
+ */
 module.exports.printDoc = (docname = 'app') => {
     const path = join(__dirname, 'doc', docname.concat('.txt'));
     const content = fs.readFileSync(path, "UTF-8");
     process.stdout.write(content);
     return content;
+}
+
+/**
+ * List of all keywords
+ */
+module.exports.getAllKeywords = () => {
+    const { fgyellow, bright, reset } = require("./termtext");
+    const list = keymap.entries.map(word => `${fgyellow}${bright}${word}${reset}`);
+
+    process.stdout.write(list.join(', ').concat('\n'));
+}
+
+/**
+ * List of all routes related to given keyword
+ * @param {string} keyname
+ */
+module.exports.getRoutes = (keyname) => {
+    let routes = keymap.get(keyname);
+    if (!routes.length) {
+        return;
+    }
+
+    const { fggreen, fgcyan, bright, reset } = require("./termtext");
+
+    routes = routes.map((route, id) => {
+        /* Formation will be
+            n. [basename] /some/route/
+        */
+        const index = `${fggreen}${id + 1}${reset}.`,
+              routestring = `${bright}${route}${reset}`,
+              basestring = `${fgcyan}[${basename(route)}]${reset}`;
+
+        // Readable form
+        return [index, basestring, routestring].join(' ');
+    })
+    process.stdout.write(routes.join('\n').concat('\n'));
 }

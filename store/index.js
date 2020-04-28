@@ -1,7 +1,9 @@
 
 const fs = require("fs");
 const { join } = require("path");
+const keymap = require("./keymap");
 const { homedir } = require("os");
+const { read, writeSource } = require("./utils");
 
 /**
  * Global store path
@@ -40,26 +42,6 @@ module.exports.__defineGetter__('existsGlobal',
 );
 
 /**
- * Read and parse content of source
- * @param {string} path 
- * @return {object}
- */
-const read = (path) => JSON.parse(fs.readFileSync(path, "UTF-8"));
-
-/**
- * Write object to source file
- * @param {string} path
- * @param {object} obj 
- * @return {object}
- */
-const writeSource = (path, obj) => 
-    fs.writeFileSync(
-        path, 
-        JSON.stringify(obj, undefined, 3), 
-        "UTF-8"
-    ) || obj;
-
-/**
  * Make a query to global store
  * @param {string} query
  * @return {object}
@@ -88,7 +70,7 @@ module.exports.get = (fromGlobal = false) => {
 /**
  * Write object to a local file
  * @param {object} metadata
- * @param {boolean} toGlobal fals
+ * @param {boolean} toGlobal false
  * @return {object}
  */
 module.exports.write = (metadata, toGlobal = false) => {
@@ -98,12 +80,19 @@ module.exports.write = (metadata, toGlobal = false) => {
     } else {
         // For insertion
         let obj = read(this.globalpath) || {};
-        const { path } = metadata;
+        const { path, keywords } = metadata;
+
+        // register keywords
+        if (keywords.length) {
+            keymap.add(path, keywords);
+        }
 
         // Push new object entry
         obj = Object.assign(obj, {
             [path]: metadata
         });
+        
+
         return writeSource(this.globalpath, obj) || metadata;
     }
 }

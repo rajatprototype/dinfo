@@ -48,4 +48,14 @@ Or use -g flag if it in global store
  My global note
 ```
 
+### Keywords
+Use keywords option to see all global keywords
+```
+ $ dinfo keywords
+```
+
+Get all routes related to keywords
+```
+ $ dinfo get code
+```
 [![Tweeting](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/Rajat04500210)
